@@ -13,9 +13,14 @@ WORKDIR /wmw
 COPY requirements.txt /wmw/
 
 # install dependencies
-RUN pip install -r requirements.txt --user --upgrade
+RUN apk add build-base
+RUN apk add mariadb-dev
+RUN pip install -r requirements.txt --upgrade setuptools
+
 
 # copy project
 COPY . /wmw/
 
 EXPOSE 8000
+
+# docker stop $(docker ps -a -q)
